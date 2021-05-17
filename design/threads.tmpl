@@ -8,9 +8,9 @@
 
 >> Fill in the names and email addresses of your group members.
 
-FirstName LastName <email@domain.example>
-FirstName LastName <email@domain.example>
-FirstName LastName <email@domain.example>
+Johnson Zhong <johnson.zhong@mail.utoronto.ca>
+Aoqi Liu <aoqi.liu@mail.utoronto.ca>
+Sanjam Sigdel <sanjam.sigdel@mail.utoronto.ca>
 
 ---- PRELIMINARIES ----
 
@@ -34,6 +34,12 @@ FirstName LastName <email@domain.example>
 
 >> A2: Briefly describe what happens in a call to timer_sleep(),
 >> including the effects of the timer interrupt handler.
+When a thread is put to sleep in timer_sleep(), add the thread that called the function to
+a sorted list of sleeping threads. The list is sorted such that the threads to be waken up sooner will
+be at the front of the list.
+Threads are put to sleep with a semaphore, instead of using thread_yield to avoid busy waiting.
+In the timer interrupt handler, each tick we go through the list of sleeping threads and wake up all threads
+that need to be woken up by up-ing its semaphore.
 
 >> A3: What steps are taken to minimize the amount of time spent in
 >> the timer interrupt handler?
